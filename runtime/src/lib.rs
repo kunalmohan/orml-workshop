@@ -49,6 +49,7 @@ pub use sp_runtime::BuildStorage;
 pub use sp_runtime::{Perbill, Permill};
 
 pub use pallet_exchange;
+pub use pallet_voucher;
 
 /// An index to a block.
 pub type BlockNumber = u32;
@@ -319,6 +320,12 @@ impl pallet_exchange::Config for Runtime {
 	type OrderId = u32;
 }
 
+impl pallet_voucher::Config for Runtime {
+	type Event = Event;
+	type Currency = Currencies;
+	type VoucherId = u32;
+}
+
 // Create the runtime by composing the FRAME pallets that were previously configured.
 construct_runtime!(
 	pub enum Runtime where
@@ -339,6 +346,7 @@ construct_runtime!(
 		Tokens: orml_tokens::{Module, Storage, Event<T>, Config<T>},
 
 		Exchange: pallet_exchange::{Module, Storage, Call, Event<T>},
+		Voucher: pallet_voucher::{Module, Storage, Call, Event<T>},
 	}
 );
 
@@ -540,6 +548,7 @@ impl_runtime_apis! {
 			add_benchmark!(params, batches, pallet_balances, Balances);
 			add_benchmark!(params, batches, pallet_timestamp, Timestamp);
 			add_benchmark!(params, batches, pallet_exchange, Exchange);
+			add_benchmark!(params, batches, pallet_voucher, Voucher);
 
 			if batches.is_empty() { return Err("Benchmark not found for this pallet.".into()) }
 			Ok(batches)

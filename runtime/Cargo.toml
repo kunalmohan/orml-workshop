@@ -20,6 +20,7 @@ serde = { version = "1.0.119", optional = true, features = ["derive"] }
 
 # local dependencies
 pallet-exchange = { path = '../pallets/exchange', default-features = false, version = '3.0.0' }
+pallet-voucher = { path = '../pallets/voucher', default-features = false, version = '3.0.0' }
 
 # Substrate dependencies
 frame-benchmarking = { default-features = false, optional = true, version = '3.0.0' }
